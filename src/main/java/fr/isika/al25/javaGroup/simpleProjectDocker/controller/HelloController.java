@@ -24,6 +24,8 @@ public class HelloController {
             @RequestParam("name") String name,
             Model model) {
 
+        System.out.println(name);
+
         String message = "Hello " + name;
 
         model.addAttribute("name", "");
