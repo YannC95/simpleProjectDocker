@@ -1,26 +1,36 @@
 package fr.isika.al25.javaGroup.simpleProjectDocker.controller;
 
+import fr.isika.al25.javaGroup.simpleProjectDocker.model.Hello;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import fr.isika.al25.javaGroup.simpleProjectDocker.model.Hello;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HelloController {
 
-	private Hello hello = new Hello();
-	
-	@GetMapping("/")
-	public String accueil() {
-		return "index";
-	}
-	
-	@PostMapping(value = "/hello")
-	public void hello(@RequestBody String name) {
-		hello.setName(name);
-		System.out.println("Bonjour " + hello.getName() + " ... Vous êtes bien matinal ...");
-	}
-	
+    @GetMapping("/")
+    public String accueil(Model model) {
+
+        model.addAttribute("name", "");
+        model.addAttribute("message", "");
+
+        return "index";
+    }
+
+    @PostMapping(value = "/hello")
+    public String hello(
+            @RequestParam("name") String name,
+            Model model) {
+
+        String message = "Hello " + name;
+
+        model.addAttribute("name", "");
+        model.addAttribute("message", message);
+
+
+        return "index";
+    }
+
 }
